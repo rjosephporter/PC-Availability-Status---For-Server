@@ -1,0 +1,17 @@
+{
+  "name": "gt-pc-status-server",
+  "version": "1.0.0",
+  "description": "Server app for Gamerz Throne Client PCs Status",
+  "main": "app.js",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rjosephporter",
+  "license": "MIT"
+}
