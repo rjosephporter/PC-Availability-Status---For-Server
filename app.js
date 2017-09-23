@@ -5,29 +5,15 @@ var fs = require('fs');
 var path = require('path');
 var onlineClients = {};
 var allClients = [
-  { pcNumber: 1,  mac: '1C-1B-0D-54-19-AD', active: false, updated: null },
-  { pcNumber: 2,  mac: '1C-1B-0D-54-19-16', active: false, updated: null },
-  { pcNumber: 3,  mac: '1C-1B-0D-54-18-B0', active: false, updated: null },
-  { pcNumber: 4,  mac: '1C-1B-0D-54-19-8C', active: false, updated: null },
-  { pcNumber: 5,  mac: '1C-1B-0D-54-19-0E', active: false, updated: null },
-  { pcNumber: 6,  mac: '1C-1B-0D-54-19-20', active: false, updated: null },
-  { pcNumber: 7,  mac: '1C-1B-0D-54-19-18', active: false, updated: null },
-  { pcNumber: 8,  mac: '1C-1B-0D-54-19-1A', active: false, updated: null },
-  { pcNumber: 10, mac: '1C-1B-0D-54-19-4E', active: false, updated: null },
-  { pcNumber: 11, mac: '1C-1B-0D-54-19-D4', active: false, updated: null },
-  { pcNumber: 13, mac: '1C-1B-0D-55-48-49', active: false, updated: null },
-  { pcNumber: 15, mac: '1C-1B-0D-55-46-A4', active: false, updated: null },
-  { pcNumber: 16, mac: '1C-1B-0D-54-1A-06', active: false, updated: null },
-  { pcNumber: 17, mac: '1C-1B-0D-54-19-8D', active: false, updated: null },
-  { pcNumber: 19, mac: '1C-1B-0D-54-19-A9', active: false, updated: null },
-  { pcNumber: 20, mac: '1C-1B-0D-54-19-5E', active: false, updated: null },
-  { pcNumber: 21, mac: '1C-1B-0D-54-19-AB', active: false, updated: null },
-  { pcNumber: 22, mac: '1C-1B-0D-CB-6E-79', active: false, updated: null },
-  { pcNumber: 23, mac: '1C-1B-0D-54-18-B1', active: false, updated: null },
-  { pcNumber: 24, mac: '1C-1B-0D-54-19-8A', active: false, updated: null },
-
-  //{ pcNumber: 98, mac: '00-FF-34-01-B8-81', active: false, updated: null },
-  //{ pcNumber: 99, mac: '74:D4:35:87:7a:2c', active: false, updated: null },
+  /* Insert here the individual info of PC in the following format: */
+  /*
+  { 
+    pcNumber: 1,  
+    mac: '2D-XX-XX-XX-12-34', // PC's mac address 
+    active: false, 
+    updated: null 
+  },
+  */
 ];
 
 app.listen(8181);
