@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>Gamerz Throne</title>
+
+    <!-- Sockiet.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <!--<link href="/css/font-awesome.min.css" rel="stylesheet">-->
+    <!--<script src="https://use.fontawesome.com/062360824e.js"></script>-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/062360824e.css" media="all">
+
+    <!-- Moment.js -->
+    <script src="/js/moment.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container" id="app">
+
+    	<div class="row mb-3 mt-3">
+    		<div class="col">
+    			<img src="/img/GamerzThrone-Linear.png" class="img-fluid mx-auto d-block" style="width: 45%;">
+    		</div>
+    	</div>
+
+      <h1 class="text-center mb-3" style="color: #f7931e;">PC Availability Status</h1>
+
+	    <div class="row">
+
+        <template v-if="!showDetails">
+          <div class="col-12 col-md-6">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-body">
+                <h2 class="card-title text-center">Vacant PCs</h2>
+                <p class="card-text text-center display-3">{{ totalVacant }}</p>
+              </div>
+            </div>          
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card text-white bg-danger mb-3">
+              <div class="card-body">
+                <h2 class="card-title text-center">Occupied PCs</h2>
+                <p class="card-text text-center display-3">{{ totalActive }}</p>
+              </div>
+            </div>          
+          </div>
+          <div class="col-12">
+            <button type="button" class="btn btn-primary btn-lg btn-block" @click="showDetails = !showDetails">Details <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          </div>         
+        </template>
+      
+	    	<div class="col-12" v-if="showDetails">
+          <div class="row">
+            <template v-for="client in clients">
+              <div class="col-md-3 col-sm-3 col-6">
+                <div class="card text-white mb-3" :class="{ 'bg-success' : !client.active, 'bg-danger' : client.active }">
+                  <div class="card-body">
+                    <h2 class="card-title text-center"><span class="d-none d-sm-block">PC</span></h2>
+                    <p class="card-text text-center display-4">{{ client.pcNumber }}</p>
+                    <p class="card-text text-center d-none d-sm-block mb-0">{{ client.active ? 'Occupied' : 'Vacant' }}</p>
+                    <p class="card-text text-center d-none d-sm-block small">since {{ client.updated | moment }}</p>
+                  </div>
+                </div>
+              </div>
+            </template>            
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-warning btn-lg btn-block" @click="showDetails = !showDetails"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to Overview</button>
+            </div>
+          </div>
+        </div>
+		</div>
+
+    </div><!-- /.container -->
+	<script>
+	  var socket = io('http://128.199.151.105:8181');
+	  var onlineClients;
+
+	  socket.on('connect', function() {
+	  	console.log('We are connected!');
+	  	socket.emit('request-clients', '');
+
+		  socket.on('retrieve-clients', function(clientList) {
+		  	console.log(clientList);
+		  	//onlineClients = clientList;
+        vm.clients = clientList;
+		  });  	
+	  });   
+
+	  var vm = new Vue({
+	  	el: '#app',
+	  	data: {
+	  		clients: [],
+        showDetails: false
+	  	},
+	      computed: {
+	        totalActive: function() {
+	          var ctr = 0;
+	          this.clients.forEach(function(client, index){
+	            if(client.active === true) ctr++;
+	          });
+	          return ctr;
+	        },
+	        totalVacant: function() {
+	          var ctr = 0;
+	          this.clients.forEach(function(client, index){
+	            if(client.active === false) ctr++;
+	          });
+	          return ctr;
+	        }
+	      },
+      	filters: {
+      		moment: function(date) {
+      			return moment(date, 'YYYY-MM-DD HH:mm:ss').fromNow();
+      		}
+      	}
+	  });
+
+	</script>    
+  </body>
+</html>
